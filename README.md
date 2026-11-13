@@ -6,6 +6,7 @@ The marketing and download page for 2A School Manager, built in the same layout 
 ## Files
 
 - `index.html`: the whole page (styles and scripts inside it)
+- `terms.html`, `privacy.html`, `refund.html`: the legal pages, based on 2A FlowBooks' own, adapted for schools
 - `img/`: screenshots of the real app with made-up test students (WebP)
 - `favicon.ico`, `favicon-32.png`, `apple-touch-icon.png`, `icon-192.png`: logo A icons
 
@@ -31,8 +32,7 @@ Everything a shop owner would change is in the `CONFIG` block near the bottom of
 - `downloads`: the file names attached to every release in kingzizou/2A-School-Manager-releases
   (the fixed-name copies, so the links always give the newest version).
 - `bank`, `whatsapp`, `email`: how schools pay and reach you.
-- `termsUrl`, `privacyUrl`, `refundUrl`: add these pages for School Manager, then put their file names here
-  and the footer shows the links.
+- `termsUrl`, `privacyUrl`, `refundUrl`: the legal pages linked in the footer.
 - `flowbooksUrl`: where the "Also from 2A" section sends people.
 
 The "New in 1.0.7" bar at the top and the feature cards are plain HTML; update them with each release.

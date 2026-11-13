@@ -645,9 +645,9 @@ var CONFIG = {
   bank: { bankName:"Mobile Money", accountName:"Abdul Aziz Alhassan", accountNumber:"0546533134", branch:"" },
   whatsapp:    "+233546533134",
   email:       "2aprintsservice@gmail.com",
-  termsUrl:    "",   /* add terms.html, privacy.html and refund.html for School Manager, then put their names here */
-  privacyUrl:  "",
-  refundUrl:   "",
+  termsUrl:    "terms.html",
+  privacyUrl:  "privacy.html",
+  refundUrl:   "refund.html",
   /* PRICING. perUserMonth is the price of one user for one month, in cedis.
      While it is null the page explains how pricing works and asks schools to message for a price, with no figures.
      userTiers: discount % on each user in that range. periodDiscounts: discount % on the whole price once the
@@ -730,7 +730,7 @@ var CONFIG = {
   cb.innerHTML = parts.join("");
   if(wa){ var w=document.getElementById("waBtn"); w.href="https://wa.me/"+wa+"?text="+encodeURIComponent("Hello, I would like to know more about 2A School Manager for our school."); w.target="_blank"; w.rel="noopener"; }
   var fl=document.getElementById("footLinks");
-  [["Terms",CONFIG.termsUrl],["Privacy",CONFIG.privacyUrl],["Refunds",CONFIG.refundUrl]].forEach(function(l){ if(l[1]) fl.insertAdjacentHTML("afterbegin",'<a href="'+l[1]+'">'+l[0]+'</a>'); });
+  [["Refunds",CONFIG.refundUrl],["Privacy",CONFIG.privacyUrl],["Terms",CONFIG.termsUrl]].forEach(function(l){ if(l[1]) fl.insertAdjacentHTML("afterbegin",'<a href="'+l[1]+'">'+l[0]+'</a>'); });
 })();
 </script>
 </body>
