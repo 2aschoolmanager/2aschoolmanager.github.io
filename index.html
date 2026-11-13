@@ -307,6 +307,18 @@ footer a{margin-inline:6px}
   nav .btn{display:none}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.flash{animation:none}.btn{transition:none}}
+/* ---------- demo videos: one for Islamic schools, one for regular (GES) schools ---------- */
+.demo{background:var(--panel);border-bottom:1px solid var(--line)}
+.demo[hidden]{display:none}
+.demo .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:48px;align-items:center}
+.demo .player{position:relative;border-radius:22px;overflow:hidden;background:var(--deep);border:3px solid var(--gold);box-shadow:0 18px 50px rgba(14,23,51,.28);aspect-ratio:16/9}
+.demo .player.tall{aspect-ratio:9/16;max-width:340px;margin-inline:auto}
+.demo video{display:block;width:100%;height:100%;object-fit:contain;background:var(--deep)}
+.demo .vtabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.demo .vtabs button{font:700 15px var(--body);padding:10px 16px;border-radius:999px;border:2px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.demo .vtabs button[aria-selected="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.demo .vnote{color:var(--muted);font-size:15px;margin-top:14px}
+@media (max-width:860px){.demo .wrap{grid-template-columns:1fr;gap:28px}}
 </style>
 </head>
 <body>
@@ -361,6 +373,17 @@ footer a{margin-inline:6px}
   <span>Made for Ghanaian schools</span>
   <ul><li>English &amp; Arabic</li><li>GES</li><li>BECE</li><li>WASSCE</li><li>Qur'an &amp; Hifz</li><li>MoMo</li><li>SSNIT &amp; PAYE</li></ul>
 </div></div>
+
+<section class="demo" id="demo" hidden><div class="wrap">
+  <div class="player" id="vPlayer"><video id="vid" controls preload="metadata" playsinline aria-label="2A School Manager demo"></video></div>
+  <div>
+    <h2>See it in action</h2>
+    <p class="sec-lead" id="vLead"></p>
+    <div class="vtabs" role="tablist" id="vTabs"></div>
+    <p class="vnote" id="vNote"></p>
+    <div class="cta-row"><a class="btn" href="#download">Download free</a></div>
+  </div>
+</div></section>
 
 <section class="tour" id="tour"><div class="wrap">
   <h2>See the real screens</h2>
@@ -642,6 +665,12 @@ var CONFIG = {
   },
   webAppUrl:   "https://kingzizou.github.io/2A-School-Manager-releases/",
   flowbooksUrl:"https://2aflowbooks.github.io/",
+  /* Demo videos (files next to this page, e.g. video/islamic.mp4). Leave src empty and that tab is hidden;
+     with both empty the whole "See it in action" section stays hidden. */
+  videos: [
+    { key:"islamic", label:"Islamic schools", src:"video/islamic-schools.mp4", poster:"video/islamic-schools.jpg", lead:"One minute in an Islamic school: the dashboard, marks with grades and positions, fees by cash, bank or MoMo, the register, the library, and the whole app in Arabic.", note:"Shown with the made-up Al-Noor Model School." },
+    { key:"regular", label:"GES schools", src:"video/ges-schools.mp4", poster:"video/ges-schools.jpg", lead:"One minute in a GES school, all in English: the dashboard, marks with grades and positions, fees by cash, bank or MoMo, the register and the library.", note:"Shown with the made-up Bright Star Academy." }
+  ],
   bank: { bankName:"Mobile Money", accountName:"Abdul Aziz Alhassan", accountNumber:"0546533134", branch:"" },
   whatsapp:    "+233546533134",
   email:       "2aprintsservice@gmail.com",
@@ -729,6 +758,23 @@ var CONFIG = {
   if(CONFIG.email) parts.push('<div><span>Email</span><br><code>'+CONFIG.email+'</code></div>');
   cb.innerHTML = parts.join("");
   if(wa){ var w=document.getElementById("waBtn"); w.href="https://wa.me/"+wa+"?text="+encodeURIComponent("Hello, I would like to know more about 2A School Manager for our school."); w.target="_blank"; w.rel="noopener"; }
+
+  /* Demo videos */
+  (function(){
+    var V=(CONFIG.videos||[]).filter(function(v){return v.src;}); if(!V.length) return;
+    var sec=document.getElementById("demo"), vid=document.getElementById("vid"), pl=document.getElementById("vPlayer"), tabs=document.getElementById("vTabs");
+    sec.hidden=false;
+    tabs.innerHTML = V.length>1 ? V.map(function(v,i){return '<button type="button" role="tab" data-k="'+v.key+'" aria-selected="'+(i===0)+'">'+v.label+'</button>';}).join("") : "";
+    function show(k){
+      var v=V.filter(function(x){return x.key===k;})[0]||V[0];
+      vid.pause(); vid.poster=v.poster||""; vid.src=v.src; vid.setAttribute("aria-label","2A School Manager demo: "+v.label);
+      document.getElementById("vLead").textContent=v.lead; document.getElementById("vNote").textContent=v.note||"";
+      [].forEach.call(tabs.children,function(b){b.setAttribute("aria-selected",String(b.getAttribute("data-k")===v.key));});
+    }
+    vid.addEventListener("loadedmetadata",function(){ pl.classList.toggle("tall", vid.videoHeight>vid.videoWidth); });
+    tabs.addEventListener("click",function(e){var b=e.target.closest("button"); if(b) show(b.getAttribute("data-k"));});
+    show(V[0].key);
+  })();
   var fl=document.getElementById("footLinks");
   [["Refunds",CONFIG.refundUrl],["Privacy",CONFIG.privacyUrl],["Terms",CONFIG.termsUrl]].forEach(function(l){ if(l[1]) fl.insertAdjacentHTML("afterbegin",'<a href="'+l[1]+'">'+l[0]+'</a>'); });
 })();
