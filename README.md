@@ -8,6 +8,7 @@ The marketing and download page for 2A School Manager, built in the same layout 
 - `index.html`: the whole page (styles and scripts inside it)
 - `terms.html`, `privacy.html`, `refund.html`: the legal pages, based on 2A FlowBooks' own, adapted for schools
 - `img/`: screenshots of the real app with made-up test students (WebP)
+- `2A-School-Manager-User-Manual.pdf`, `.docx` and `2A-School-Manager-Parent-Handout.pdf`: the user manual and parent handout behind the download section's User manual card. Replace them with the same names when a new manual is built.
 - `favicon.ico`, `favicon-32.png`, `apple-touch-icon.png`, `icon-192.png`: logo A icons
 
 ## Publishing (same address style as 2A FlowBooks, but as an organisation)

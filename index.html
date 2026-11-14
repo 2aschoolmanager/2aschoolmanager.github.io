@@ -189,6 +189,9 @@ section{padding-block:96px}
 .where .btn{width:100%;padding:13px 12px;font-size:15px;margin-top:8px}
 .where .btn:not(.ghost){background:var(--navy);border-color:var(--navy);color:#fff}
 .where small{display:block;font-size:13px;color:var(--muted);margin-top:12px}
+.where div.full{grid-column:1/-1}
+.where .row{display:flex;flex-wrap:wrap;gap:0 10px;margin:0}
+.where .row .btn{flex:1 1 220px;width:auto}
 .install{margin-top:30px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;font-size:15px;color:var(--muted)}
 .install b{color:var(--ink);display:block;margin-bottom:4px;font-size:16px}
 
@@ -496,6 +499,7 @@ footer a{margin-inline:6px}
     <div><b>Linux</b><span>Installs like any other app</span><a class="btn" id="dlLinuxDeb" href="#download">Ubuntu, Debian, Mint (.deb)</a><a class="btn" id="dlLinuxRpm" href="#download">Fedora (.rpm)</a><a class="btn ghost" id="dlLinux" href="#download">AppImage</a></div>
     <div><b>Android</b><span>The app for Android phones and tablets, for staff and parents</span><a class="btn" id="dlAndroid" href="#download">Download for Android</a></div>
     <div><b>iPhone and other phones</b><span>Open the web app and add it to your home screen</span><a class="btn ghost" id="webBtn2" href="#download">Open the web app</a></div>
+    <div class="full"><b>User manual</b><span>Step-by-step guide with screenshots for every screen and every role, from installing to the end of the year. The parent handout is two pages a school can print and give to parents.</span><p class="row"><a class="btn" id="dlManual" href="#download">Download manual (PDF)</a><a class="btn ghost" id="dlManualWord" href="#download">Manual in Word</a><a class="btn ghost" id="dlHandout" href="#download">Parent handout (PDF)</a></p></div>
   </div>
   <div class="install">
     <div><b>Windows</b>Open the file you downloaded. If Windows says it protected your PC, choose More info, then Run anyway.</div>
@@ -563,6 +567,7 @@ footer a{margin-inline:6px}
     <details><summary>Can we use the GES grading and BECE grades?</summary><p>Yes. The app comes with ready-made grade scales (GES basic, BECE 1 to 9, WASSCE A1 to F9 and Arabic bands), and you can change them or make your own for each level. You choose the marking scheme too: out of 100, or class score plus exam score with your own split.</p></details>
     <details><summary>How do parents pay fees with MoMo?</summary><p>The school connects its own Paystack account in the app. Parents then tap Pay with MoMo in the parent portal, approve the payment on their phone, and the receipt appears by itself. The money goes into the school's account, not ours.</p></details>
     <details><summary>Is our school's data kept separate from other schools?</summary><p>Yes. Each school's records are stored separately and only the people you invite can open them. Parents see only their own children.</p></details>
+    <details><summary>Is there a manual?</summary><p>Yes. Download the user manual from the <a href="#download">download section</a>, as a PDF or in Word. It covers every screen with screenshots, plus a two-page handout for parents.</p></details>
     <details><summary>Can we bring our students in from Excel?</summary><p>Yes. Download the template from the Import screen, fill it in (or paste from your old sheet) and import the whole school at once.</p></details>
     <details><summary>What happens if the internet goes off?</summary><p>The app keeps a saved copy, so you can still open and read your records. Changes can be made again when the internet is back.</p></details>
     <details><summary>Windows says it protected my PC. Is the app safe?</summary><p>Windows shows this notice for any new program that has not built up a download history yet. Choose More info, then Run anyway. Your school's data is kept in the cloud under your own login.</p></details>
@@ -661,7 +666,11 @@ var CONFIG = {
     linux:    "2A-School-Manager-linux-x64.AppImage",
     linuxDeb: "2A-School-Manager-linux-amd64.deb",
     linuxRpm: "2A-School-Manager-linux-x86_64.rpm",
-    android:  "2A-School-Manager.apk"
+    android:  "2A-School-Manager.apk",
+    /* Manuals: hosted next to this page, not on the release. */
+    manual:     "2A-School-Manager-User-Manual.pdf",
+    manualWord: "2A-School-Manager-User-Manual.docx",
+    handout:    "2A-School-Manager-Parent-Handout.pdf"
   },
   webAppUrl:   "https://kingzizou.github.io/2A-School-Manager-releases/",
   flowbooksUrl:"https://2aflowbooks.github.io/",
@@ -691,7 +700,7 @@ var CONFIG = {
 };
 (function(){
   function set(id,href,blank){var e=document.getElementById(id); if(e&&href){ e.setAttribute("href",href); if(blank){e.target="_blank"; e.rel="noopener";} }}
-  var D=CONFIG.downloads; set("dlWin",D.base+D.win); set("dlMacArm",D.base+D.macArm); set("dlMacIntel",D.base+D.macIntel); set("dlLinux",D.base+D.linux); set("dlLinuxDeb",D.base+D.linuxDeb); set("dlLinuxRpm",D.base+D.linuxRpm); set("dlAndroid",/^https?:/.test(D.android)?D.android:D.base+D.android);
+  var D=CONFIG.downloads; set("dlWin",D.base+D.win); set("dlMacArm",D.base+D.macArm); set("dlMacIntel",D.base+D.macIntel); set("dlLinux",D.base+D.linux); set("dlLinuxDeb",D.base+D.linuxDeb); set("dlLinuxRpm",D.base+D.linuxRpm); set("dlAndroid",/^https?:/.test(D.android)?D.android:D.base+D.android); set("dlManual",D.manual); set("dlManualWord",D.manualWord); set("dlHandout",D.handout);
   set("webBtn",CONFIG.webAppUrl,1); set("webBtn2",CONFIG.webAppUrl,1);
   set("fbLink",CONFIG.flowbooksUrl,1); set("fbTrial",CONFIG.flowbooksUrl+"#download",1);
   document.getElementById("yr").textContent = new Date().getFullYear();
